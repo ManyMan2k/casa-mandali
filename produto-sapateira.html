@@ -1156,14 +1156,52 @@
   </div>
 
   <script>
-    // Checkout UTM passthrough
-    function goToCheckout() {
-      var baseUrl = "https://CHECKOUT-DA-SUA-LOJA.com/checkout"; // TODO: troque pela URL real
-      var utmKeys = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","src","sck","xcod"];
-      var p = new URLSearchParams(window.location.search);
-      var o = new URLSearchParams();
-      utmKeys.forEach(function(k){ if(p.has(k)) o.set(k, p.get(k)); });
-      window.location.href = baseUrl + (o.toString() ? (baseUrl.includes("?")?"&":"?") + o.toString() : "");
+    // Variant IDs por cor — preencha com os IDs reais do Zedy admin
+    var VARIANT_IDS = {
+      "Branco": 0,  // TODO: substituir pelo ID real
+      "Cinza":  0,  // TODO: substituir pelo ID real
+      "Creme":  0,  // TODO: substituir pelo ID real
+      "Marrom": 0,  // TODO: substituir pelo ID real
+      "Preto":  0,  // TODO: substituir pelo ID real
+    };
+
+    async function goToCheckout() {
+      var btn = document.querySelector(".cta-btn");
+      var stickyBtn = document.querySelector(".sticky-bar .cta-btn");
+      var originalText = btn ? btn.textContent : "COMPRAR AGORA";
+
+      var variantId = VARIANT_IDS[selColor] || 0;
+      if (!variantId) {
+        alert("Produto temporariamente indisponível. Tente novamente em instantes.");
+        return;
+      }
+
+      // Loading state
+      [btn, stickyBtn].forEach(function(b){ if(b){ b.textContent = "Aguarde..."; b.disabled = true; } });
+
+      try {
+        var res = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ variantId: variantId, quantity: 1 }),
+        });
+        var data = await res.json();
+
+        if (data.checkoutUrl) {
+          // Repassa UTMs para o checkout
+          var utmKeys = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","src","sck","xcod"];
+          var p = new URLSearchParams(window.location.search);
+          var o = new URLSearchParams();
+          utmKeys.forEach(function(k){ if(p.has(k)) o.set(k, p.get(k)); });
+          var url = data.checkoutUrl + (o.toString() ? (data.checkoutUrl.includes("?")?"&":"?") + o.toString() : "");
+          window.location.href = url;
+        } else {
+          throw new Error("URL não retornada");
+        }
+      } catch(e) {
+        [btn, stickyBtn].forEach(function(b){ if(b){ b.textContent = originalText; b.disabled = false; } });
+        alert("Erro ao iniciar checkout. Tente novamente.");
+      }
     }
 
     // Gallery
