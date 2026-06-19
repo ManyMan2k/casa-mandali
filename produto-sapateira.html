@@ -934,9 +934,6 @@
                 <span class="cbadge green">✓ LOGÍSTICA SEGURA</span>
               </div>
             </div>
-            <div class="commit-img">
-              <img src="logo_casamandali.png" alt="Casa Mandali" loading="lazy" />
-            </div>
           </div>
         </div>
 
@@ -1095,7 +1092,7 @@
         <p>Casa Mandali Comércio de Móveis LTDA.</p>
         <p>Rua das Acácias, 1482 — Jardim Europa</p>
         <p>São Paulo/SP — CEP: 01402-001</p>
-        <p style="margin-top:10px">CNPJ: 00.000.000/0001-00</p>
+
         <p style="margin-top:10px">
           <svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.36 11.91 19.79 19.79 0 011.29 3.26 2 2 0 013.28 1.08h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.73a16 16 0 006.29 6.29l1.03-1.03a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           (11) 9 9999-0000
@@ -1156,39 +1153,44 @@
   </div>
 
   <script>
-    // Variant IDs por cor — preencha com os IDs reais do Zedy admin
+    // variantIds do Zedy por cor+montagem
+    // No Zedy admin: produto → variantes → copiar ID numérico de cada variante
     var VARIANT_IDS = {
-      "Branco": 0,  // TODO: substituir pelo ID real
-      "Cinza":  0,  // TODO: substituir pelo ID real
-      "Creme":  0,  // TODO: substituir pelo ID real
-      "Marrom": 0,  // TODO: substituir pelo ID real
-      "Preto":  0,  // TODO: substituir pelo ID real
+      "Branco-desmontada":  3100494337587,  // ✓ cadastrado
+      "Branco-montada":     0,              // TODO: cadastrar variante "Branco Montada" no Zedy
+      "Cinza-desmontada":   0,              // TODO
+      "Cinza-montada":      0,              // TODO
+      "Creme-desmontada":   0,              // TODO
+      "Creme-montada":      0,              // TODO
+      "Marrom-desmontada":  0,              // TODO
+      "Marrom-montada":     0,              // TODO
+      "Preto-desmontada":   0,              // TODO
+      "Preto-montada":      0,              // TODO
     };
 
     async function goToCheckout() {
-      var btn = document.querySelector(".cta-btn");
+      var btn = document.querySelector(".qty-cta .cta-btn");
       var stickyBtn = document.querySelector(".sticky-bar .cta-btn");
-      var originalText = btn ? btn.textContent : "COMPRAR AGORA";
+      var originalText = "COMPRAR AGORA";
 
-      var variantId = VARIANT_IDS[selColor] || 0;
+      var key = selColor + "-" + selMontagem;
+      var variantId = VARIANT_IDS[key];
       if (!variantId) {
         alert("Produto temporariamente indisponível. Tente novamente em instantes.");
         return;
       }
 
-      // Loading state
       [btn, stickyBtn].forEach(function(b){ if(b){ b.textContent = "Aguarde..."; b.disabled = true; } });
 
       try {
         var res = await fetch("/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ variantId: variantId, quantity: 1 }),
+          body: JSON.stringify({ variantId: variantId, quantity: qty }),
         });
         var data = await res.json();
 
         if (data.checkoutUrl) {
-          // Repassa UTMs para o checkout
           var utmKeys = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","src","sck","xcod"];
           var p = new URLSearchParams(window.location.search);
           var o = new URLSearchParams();
