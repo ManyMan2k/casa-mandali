@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa Mandali | Móveis que transformam a sua casa</title>
+  <meta name="description" content="Móveis de qualidade direto da fábrica: sapateiras, racks, painéis, estantes e mais. Frete grátis para todo o Brasil e até 12x sem juros." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{overflow-x:hidden}
+    :root{
+      --bg:#faf7f3; --white:#fff; --ink:#1a1714; --muted:#7a7068;
+      --line:#ece5dc; --cta:#35a565; --cta-dark:#2c8a54; --red:#dc2626;
+      --wood:#b08254; --star:#f59e0b;
+      --font:'Poppins',system-ui,sans-serif; --display:'Fraunces',Georgia,serif;
+      --radius:16px; --shadow:0 6px 30px rgba(40,30,20,.08); --shadow-lg:0 16px 50px rgba(40,30,20,.14);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+
+    /* announce */
+    .announce{background:var(--ink);color:#fff;text-align:center;font-size:12.5px;font-weight:600;letter-spacing:.06em;padding:9px 16px}
+    .announce span{color:var(--cta);font-weight:700}
+
+    /* header */
+    .header{position:sticky;top:0;z-index:50;background:rgba(250,247,243,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .header-in{display:flex;align-items:center;height:64px;position:relative;width:100%}
+    .logo{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;pointer-events:auto}
+    .logo img{height:38px;width:auto;display:block}
+    .logo-text{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+    .nav{display:flex;gap:26px;margin-left:8px}
+    .nav a{font-size:13.5px;font-weight:500;color:var(--muted);transition:color .2s;letter-spacing:.01em}
+    .nav a:hover{color:var(--ink)}
+    .header-actions{margin-left:auto;display:flex;align-items:center;gap:4px;color:var(--ink)}
+    .icon-btn{display:flex;width:38px;height:38px;align-items:center;justify-content:center;border-radius:50%;transition:background .2s;cursor:pointer}
+    .icon-btn:hover{background:var(--line)}
+    .nav-toggle{background:none;border:none;display:flex;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;padding:9px 7px;cursor:pointer;border-radius:8px;transition:background .2s;flex-shrink:0}
+    .nav-toggle:hover{background:var(--line)}
+    .nav-toggle span{display:block;height:1.5px;background:var(--ink);border-radius:2px;transition:.25s}
+    .nav-toggle span:nth-child(1){width:20px}
+    .nav-toggle span:nth-child(2){width:14px}
+    .nav-toggle span:nth-child(3){width:17px}
+    @media(max-width:860px){.nav{display:none}}
+
+    /* hero */
+    .hero{display:block;width:100%;background:url('images/hero.webp') center/cover no-repeat;aspect-ratio:1916/821}
+    @media(max-width:600px){.hero{background-image:url('images/heromobile.webp');aspect-ratio:1/1}}
+    .btn{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--cta);color:#fff;font-weight:700;font-size:15px;padding:17px 30px;border-radius:999px;box-shadow:0 10px 26px rgba(53,165,101,.45);transition:transform .15s,background .2s;width:100%;max-width:340px}
+    .btn:hover{background:var(--cta-dark);transform:translateY(-2px)}
+    .btn-ghost{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.5);color:#fff;box-shadow:none;backdrop-filter:blur(4px)}
+    .btn-ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
+
+    /* benefits */
+    .benefits{background:var(--white);border-bottom:1px solid var(--line)}
+    .benefits-in{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:22px 0}
+    .benefit{display:flex;align-items:center;gap:12px;justify-content:center;text-align:left;padding:6px 10px}
+    .benefit svg{width:26px;height:26px;color:var(--wood);flex-shrink:0}
+    .benefit b{display:block;font-size:13.5px;font-weight:700}
+    .benefit small{font-size:12px;color:var(--muted)}
+    @media(max-width:860px){.benefits-in{grid-template-columns:repeat(2,1fr)}}
+
+    /* section */
+    .section{padding:70px 0}
+    .section-head{text-align:center;max-width:600px;margin:0 auto 44px}
+    .section-head .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--wood);margin-bottom:10px}
+    .section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,42px);line-height:1.08;letter-spacing:-.01em}
+    .section-head p{color:var(--muted);margin-top:12px}
+
+    /* product grid */
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+    @media(max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:720px){.grid{grid-template-columns:repeat(2,1fr);gap:14px}}
+    .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;box-shadow:var(--shadow)}
+    .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+    .card-media{position:relative;aspect-ratio:1/1;background:#f4eee6;overflow:hidden}
+    .card-media img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+    .card:hover .card-media img{transform:scale(1.05)}
+    .card-badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--ink);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.05em;padding:5px 11px;border-radius:999px}
+    .card-body{padding:16px 16px 18px;display:flex;flex-direction:column;flex:1}
+    .card-name{font-size:14px;font-weight:600;line-height:1.35;min-height:38px;margin-bottom:10px}
+    .card-price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+    .card-old{font-size:12.5px;color:var(--muted);text-decoration:line-through}
+    .card-price{font-size:21px;font-weight:800;color:var(--ink)}
+    .card-parcela{font-size:12px;color:var(--cta-dark);font-weight:600;margin-top:2px}
+    .card-cta{margin-top:14px;font-size:13px;font-weight:700;color:var(--cta-dark)}
+    .card[href]:hover .card-cta{text-decoration:underline}
+
+    /* featured product */
+    .featured{padding:72px 0 80px;background:var(--white)}
+    .featured-in{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+    .featured-gallery{position:relative}
+    .featured-main-img{width:100%;border-radius:20px;object-fit:cover;aspect-ratio:4/4;box-shadow:var(--shadow-lg)}
+    .featured-thumbs{display:flex;gap:8px;margin-top:12px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+    .featured-thumbs::-webkit-scrollbar{display:none}
+    .featured-thumb{width:56px;height:56px;flex-shrink:0;border-radius:10px;object-fit:cover;cursor:pointer;border:2.5px solid transparent;transition:border-color .2s,opacity .2s;opacity:.7}
+    .featured-thumb:hover,.featured-thumb.active{border-color:var(--cta);opacity:1}
+    .featured-badge-wrap{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+    .featured-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:5px 13px;border-radius:999px}
+    .featured-badge-hot{background:#fef2f2;color:#dc2626;border:1.5px solid #fecaca}
+    .featured-badge-best{background:#f0fdf4;color:#166534;border:1.5px solid #bbf7d0}
+    .featured-info h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,3.2vw,40px);line-height:1.1;letter-spacing:-.01em;margin-bottom:20px}
+    .featured-price-block{background:#f8faf8;border:1.5px solid #d1fae5;border-radius:16px;padding:18px 22px;margin-bottom:24px;display:inline-block;min-width:260px}
+    .featured-old{font-size:14px;color:var(--muted);text-decoration:line-through;margin-bottom:2px}
+    .featured-discount{display:inline-block;background:#dc2626;color:#fff;font-size:11px;font-weight:800;letter-spacing:.05em;padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
+    .featured-price{font-size:42px;font-weight:800;color:var(--ink);line-height:1;margin-bottom:4px}
+    .featured-parcela{font-size:14px;color:var(--cta-dark);font-weight:600}
+    .featured-perks{list-style:none;margin-bottom:28px;display:flex;flex-direction:column;gap:10px}
+    .featured-perks li{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:500}
+    .featured-perks li::before{content:"✓";width:22px;height:22px;background:var(--cta);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+    .featured-cta{display:inline-flex;align-items:center;gap:12px;background:var(--cta);color:#fff;font-weight:800;font-size:16px;padding:18px 38px;border-radius:999px;box-shadow:0 12px 30px rgba(53,165,101,.45);transition:transform .15s,background .2s;width:100%;justify-content:center}
+    .featured-cta:hover{background:var(--cta-dark);transform:translateY(-2px)}
+    .featured-cta-sub{text-align:center;font-size:12.5px;color:var(--muted);margin-top:10px}
+    @media(max-width:860px){
+      .featured-in{grid-template-columns:1fr;gap:36px}
+      .featured-price{font-size:36px}
+      .featured-price-block{min-width:unset;width:100%}
+    }
+
+    /* cta band */
+    .band{background:linear-gradient(120deg,#1a1714,#2c241d);color:#fff;border-radius:24px;padding:52px 40px;text-align:center;margin:10px auto;max-width:1000px}
+    .band h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,3.5vw,38px);margin-bottom:12px}
+    .band p{color:#d9cfc4;margin-bottom:26px}
+
+    /* footer */
+    .footer{background:#14110e;color:#9a8f84;padding:54px 0 30px;font-size:13px;margin-top:10px}
+    .footer-top{display:flex;flex-wrap:wrap;gap:30px;justify-content:space-between;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .footer .logo{color:#fff;margin-bottom:12px}
+    .footer-col h4{color:#fff;font-size:13px;margin-bottom:12px;letter-spacing:.02em}
+    .footer-col a{display:block;color:#9a8f84;margin-bottom:8px;transition:color .2s}
+    .footer-col a:hover{color:#fff}
+    .footer-bottom{padding-top:22px;text-align:center;font-size:12px;opacity:.7;line-height:1.9}
+  </style>
+</head>
+<body>
+
+  <div class="announce">FRETE GRÁTIS PARA TODO O BRASIL <span>·</span> ATÉ 12X SEM JUROS</div>
+
+  <header class="header">
+    <div class="wrap header-in">
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a class="logo" href="index.html">
+        <span class="logo-text">Casa Mandali</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Início</a>
+        <a href="#produtos">Produtos</a>
+        <a href="produto-sapateira.html">Sapateira</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <div class="header-actions">
+        <span class="icon-btn" aria-label="Buscar"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="9" r="7"/><path d="m20 20-5-5"/></svg></span>
+        <span class="icon-btn" aria-label="Carrinho"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero"></section>
+
+  <!-- BENEFITS -->
+  <section class="benefits">
+    <div class="wrap benefits-in">
+      <div class="benefit"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg><div><b>Frete grátis</b><small>para todo o Brasil</small></div></div>
+      <div class="benefit"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg><div><b>Até 12x</b><small>sem juros no cartão</small></div></div>
+      <div class="benefit"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><div><b>Compra segura</b><small>ambiente protegido</small></div></div>
+      <div class="benefit"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><div><b>Troca em 30 dias</b><small>garantia de satisfação</small></div></div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCT — SAPATEIRA -->
+  <section class="featured" id="sapateira-destaque">
+    <div class="wrap">
+      <div class="featured-in">
+        <!-- Galeria -->
+        <div class="featured-gallery">
+          <img class="featured-main-img" id="featMainImg" src="images/products/sapateira/sapateira-branco-em-cima.webp" alt="Sapateira Fina de Madeira com 3 Portas — Branco" />
+          <div class="featured-thumbs">
+            <img class="featured-thumb active" src="images/products/sapateira/sapateira-branco-em-cima.webp" alt="Branco" onclick="switchImg(this)" />
+            <img class="featured-thumb" src="images/products/sapateira/sapateira-branco.webp" alt="Branco Lateral" onclick="switchImg(this)" />
+            <img class="featured-thumb" src="images/products/sapateira/sapateira-preta.webp" alt="Preta" onclick="switchImg(this)" />
+            <img class="featured-thumb" src="images/products/sapateira/sapateira-cinza.webp" alt="Cinza" onclick="switchImg(this)" />
+            <img class="featured-thumb" src="images/products/sapateira/sapateira-marrom.webp" alt="Marrom" onclick="switchImg(this)" />
+            <img class="featured-thumb" src="images/products/sapateira/sapateira-madeira-fora.webp" alt="Madeira" onclick="switchImg(this)" />
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="featured-info">
+          <div class="featured-badge-wrap">
+            <span class="featured-badge featured-badge-best">⭐ Mais Vendido</span>
+            <span class="featured-badge featured-badge-hot">🔥 Oferta Limitada</span>
+          </div>
+          <h2>Sapateira Fina de Madeira — Com 3 Portas</h2>
+
+          <div class="featured-price-block">
+            <div class="featured-old">R$ 374,90 <span class="featured-discount">65% OFF</span></div>
+            <div class="featured-price">R$ 129,90</div>
+            <div class="featured-parcela">ou 12x de R$ 10,83 sem juros</div>
+          </div>
+
+          <ul class="featured-perks">
+            <li>Encaixe na entrada, corredor ou quarto — apenas 22 cm de profundidade</li>
+            <li>3 compartimentos basculantes — organiza até 12 pares de calçados</li>
+            <li>Disponível em 6 cores: Branco, Preto, Cinza, Creme, Marrom e Madeira</li>
+            <li>100% MDF com acabamento premium — visual moderno e resistente</li>
+            <li>Frete grátis para todo o Brasil</li>
+          </ul>
+
+          <a class="featured-cta" href="produto-sapateira.html">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            Quero a minha agora
+          </a>
+          <p class="featured-cta-sub">🔒 Compra 100% segura · Entrega em 3–8 dias úteis</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section" id="produtos" style="background:#faf7f3">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Mais produtos</div>
+        <h2>Complete a sua casa</h2>
+        <p>Outros móveis selecionados para complementar a sua decoração com qualidade e estilo.</p>
+      </div>
+      <div class="grid">
+      <a class="card" href="produtos-byvalue/produto-balcao-aparador-industrial-89cm-2-portas-mdf.html">
+        <div class="card-media">
+          <img src="images/products/balcao/balcao_aparador_design_industrial_c_02_portas_89_cm_100_mdf_513_1_4cc52fb9b7015e33e33bee25624de968.webp" alt="Balcão Aparador Design Industrial 89cm com 02 Portas 100% MDF" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Balcão Aparador Design Industrial 89cm com 02 Portas 100% MDF</h3>
+          <div class="card-price-row"><span class="card-price">R$ 244,90</span></div>
+          <p class="card-parcela">até 6x de R$ 40,82</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-balcao-buffet-bar-multiuso-2-portas-tela-sintetica.html">
+        <div class="card-media">
+          <img src="images/products/balcaobuffet/balcao_buffet_bar_multiuso_com_2_portas_em_tela_sintetica_1821_1_a7308607a091ff7a07601d757e892889.webp" alt="Balcão Buffet Bar Multiuso Com 2 Portas em Tela Sintética" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Balcão Buffet Bar Multiuso Com 2 Portas em Tela Sintética</h3>
+          <div class="card-price-row"><span class="card-price">R$ 219,90</span></div>
+          <p class="card-parcela">até 6x de R$ 36,65</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-cadeira-ergonomica-relax-diretor-tokyo-escritorio.html">
+        <div class="card-media">
+          <img src="images/products/cadeiraergometrica/cadeira_ergonomica_relax_diretor_tokyo_para_escritorio_f5_office_2161_3679_1_20260406110957_6f296d3fa2ee.webp" alt="Cadeira Ergonômica Relax Diretor Tokyo para Escritório F5 Office" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Cadeira Ergonômica Relax Diretor Tokyo para Escritório F5 Office</h3>
+          <div class="card-price-row"><span class="card-price">R$ 199,92</span></div>
+          <p class="card-parcela">até 6x de R$ 199,92</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-cristaleira-retro-53cm-led-porta-vidro-4-prateleiras-mdf.html">
+        <div class="card-media">
+          <img src="images/products/cristaleira/cristaleira_retro_mdf_com_led_porta_em_vidro_e_4_prateleiras_1447_variacao_2209_1_2a4b207908099d03ab89418272a028a3.webp" alt="Cristaleira Retrô 53cm com Led Porta em Vidro e 4 Prateleiras 100%MDF" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Cristaleira Retrô 53cm com Led Porta em Vidro e 4 Prateleiras 100%MDF</h3>
+          <div class="card-price-row"><span class="card-price">R$ 624,90</span></div>
+          <p class="card-parcela">até 6x de R$ 624,90</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-escrivaninha-135cm-gaveteiro-suspenso-f5-office.html">
+        <div class="card-media">
+          <img src="images/products/escrivaninha/escrivaninha_135cm_com_2_gavetas_pes_em_metal_f5_office_2143_variacao_3659_1_b065002366cd883bd59a028ce2a150d9.webp" alt="Escrivaninha 135cm com Gaveteiro Suspenso 2 Gavetas Pés em Metal F5 Office" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Escrivaninha 135cm com Gaveteiro Suspenso 2 Gavetas Pés em Metal F5 Office</h3>
+          <div class="card-price-row"><span class="card-price">R$ 278,90</span></div>
+          <p class="card-parcela">até 6x de R$ 278,90</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-estante-sala-prateleiras-2-gavetas-dalla-costa-100-mdf.html">
+        <div class="card-media">
+          <img src="images/products/estantesala/estante_sala_c_prateleiras_e_2_gavetas_dalla_costa_100_mdf_805_variacao_13153_1_1f45f9344c2d5669a2f03f67d239f941.webp" alt="Estante Sala com Prateleiras e 2 Gavetas Dalla Costa 100% MDF" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Estante Sala com Prateleiras e 2 Gavetas Dalla Costa 100% MDF</h3>
+          <div class="card-price-row"><span class="card-price">R$ 342,90</span></div>
+          <p class="card-parcela">até 6x de R$ 342,90</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-massageador-pescoco-8-pontos-aquecimento.html">
+        <div class="card-media">
+          <img src="images/products/massageador/massador.webp" alt="Massageador Elétrico de Ombro e Pescoço 4D com Aquecimento Duplo" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Massageador Elétrico de Ombro e Pescoço 4D com Aquecimento Duplo</h3>
+          <div class="card-price-row"><span class="card-price">R$ 79,90</span></div>
+          <p class="card-parcela">até 6x de R$ 13,32</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-painel-home-theater-180-ripado-100-mdf.html">
+        <div class="card-media">
+          <img src="images/products/painelhometheater/painel_home_theater_1_80_65_polegadas_100_mdf_337_variacao_455_1_de2dc514db048a3bc80d8c9fb746a001.webp" alt="Painel Home Theater 1,80m Ripado 100% MDF" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Painel Home Theater 1,80m Ripado 100% MDF</h3>
+          <div class="card-price-row"><span class="card-price">R$ 525,00</span></div>
+          <p class="card-parcela">até 6x de R$ 525,00</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-painel-ripado-decorativo-mdf-134x250-dalla-costa.html">
+        <div class="card-media">
+          <img src="images/products/painelripadodecorativo/painelripadodecorativo.webp" alt="Painel Ripado Decorativo em MDF 134cm x 250cm Dalla Costa" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Painel Ripado Decorativo em MDF 134cm x 250cm Dalla Costa</h3>
+          <div class="card-price-row"><span class="card-price">R$ 719,00</span></div>
+          <p class="card-parcela">ou 12x de R$ 59,92</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-painel-com-rack-140cm-led-porta-correr-mdf.html">
+        <div class="card-media">
+          <img src="images/products/painelcomrack/painel_c_rack_1_40m_c_led_e_1_porta_de_correr_100_mdf_7535_variacao_15235_1_d69833e8604b860840275b3d5e0c2472.webp" alt="Painel com Rack 1,40m com Led e 1 Porta de Correr 100% MDF" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Painel com Rack 1,40m com Led e 1 Porta de Correr 100% MDF</h3>
+          <div class="card-price-row"><span class="card-price">R$ 859,90</span></div>
+          <p class="card-parcela">até 6x de R$ 859,90</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-rack-com-painel-180cm-4-portas-pes-metal.html">
+        <div class="card-media">
+          <img src="images/products/rackcompainel/rack_com_painel_180cm_para_sala_4_portas_e_pes_em_metal_4251_1_afde9f9fcc2717d4fd81efac7735fc25.webp" alt="Rack com Painel 180cm para Sala 4 Portas e Pés em Metal" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Rack com Painel 180cm para Sala 4 Portas e Pés em Metal</h3>
+          <div class="card-price-row"><span class="card-price">R$ 1.389,90</span></div>
+          <p class="card-parcela">até 6x de R$ 231,65</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      <a class="card" href="produtos-byvalue/produto-varal-retratil-max-aco-inox-6-metros.html">
+        <div class="card-media">
+          <img src="images/products/varal/varal1.jpg" alt="Varal Retrátil Max Aço Inox 6 Metros (Compre 1 Leve 2)" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Varal Retrátil Max Aço Inox 6 Metros (Compre 1 Leve 2)</h3>
+          <div class="card-price-row"><span class="card-price">R$ 157,90</span></div>
+          <p class="card-parcela">ou 12x de R$ 13,16</p>
+          <span class="card-cta">Ver produto →</span>
+        </div>
+      </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="band">
+        <h2>A Sapateira que organiza sua entrada</h2>
+        <p>Fina, com 3 portas e 6 cores. De R$ 374,90 por R$ 129,90 — frete grátis.</p>
+        <a class="btn" href="produto-sapateira.html">Ver a oferta completa</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contato">
+    <div class="wrap">
+      <div class="footer-top">
+        <div style="max-width:300px">
+          <div class="logo">CASA MANDALI</div>
+          <p>Móveis de qualidade direto da fábrica, com entrega para todo o Brasil e o melhor custo-benefício.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Loja</h4>
+          <a href="#produtos">Produtos</a>
+          <a href="produto-sapateira.html">Sapateira</a>
+          <a href="#produtos">Ofertas</a>
+        </div>
+        <div class="footer-col">
+          <h4>Institucional</h4>
+          <a href="sobre-nos.html">Sobre nós</a>
+          <a href="termos-condicoes.html">Termos e condições</a>
+          <a href="politica-privacidade.html">Política de privacidade</a>
+          <a href="trocas-devolucoes.html">Trocas e devoluções</a>
+          <a href="politica-envio.html">Políticas de envio</a>
+          <a href="politica-reembolso.html">Política de reembolso</a>
+          <a href="aviso-legal.html">Aviso legal</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <a href="mailto:contato@casamandali.com.br">contato@casamandali.com.br</a>
+          <a href="#">Atendimento: seg a sex, 9h–18h</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <strong style="color:#cabfb4">Casa Mandali Comércio LTDA</strong><br />
+        Rua Exemplo, 123 — Centro · Sua Cidade/UF — CEP 00000-000<br />
+        © 2026 Casa Mandali — Todos os direitos reservados
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function switchImg(el) {
+      document.getElementById('featMainImg').src = el.src;
+      document.querySelectorAll('.featured-thumb').forEach(function(t){t.classList.remove('active')});
+      el.classList.add('active');
+    }
+  </script>
+</body>
+</html>
