@@ -151,11 +151,93 @@
     }
   }
 
+  // ---------- calcular frete (CEP via ViaCEP, frete grátis fixo) ----------
+  function escapeHtml(s) {
+    return ("" + s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+  function wireFrete() {
+    var btns = document.querySelectorAll("button");
+    var btn = null;
+    for (var i = 0; i < btns.length; i++) {
+      if ((btns[i].textContent || "").trim().toLowerCase() === "consultar") { btn = btns[i]; break; }
+    }
+    if (!btn) return;
+
+    // sobe até o card que contém o input do CEP
+    var card = btn, guard = 0;
+    while (card && guard < 6) {
+      if (card.querySelector && card.querySelector("input")) break;
+      card = card.parentElement; guard++;
+    }
+    if (!card) return;
+    var input = card.querySelector('input[type="text"]') || card.querySelector("input");
+    if (!input) return;
+
+    function render(data, errMsg) {
+      var old = card.querySelector("[data-frete-result]");
+      if (old) old.parentNode.removeChild(old);
+      var wrap = document.createElement("div");
+      wrap.setAttribute("data-frete-result", "");
+      wrap.style.marginTop = "16px";
+      if (errMsg) {
+        wrap.innerHTML =
+          '<div style="border-radius:8px;background:#fff;padding:12px;font-size:14px;color:#b91c1c;">' +
+          escapeHtml(errMsg) + "</div>";
+      } else {
+        var parts = [];
+        if (data.logradouro) parts.push(data.logradouro);
+        if (data.bairro) parts.push(data.bairro);
+        var line = parts.join(", ");
+        var loc = (data.localidade || "") + (data.uf ? " - " + data.uf : "");
+        var endereco = line ? line + " - " + loc : loc;
+        wrap.style.display = "flex";
+        wrap.style.flexDirection = "column";
+        wrap.style.gap = "12px";
+        wrap.innerHTML =
+          '<div style="display:flex;align-items:flex-start;gap:8px;border-radius:8px;background:#fff;padding:12px;font-size:14px;color:rgba(10,11,32,0.75);">' +
+            '<span style="flex-shrink:0;display:inline-flex;margin-top:1px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#28A745" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></span>' +
+            "<span>" + escapeHtml(endereco) + "</span>" +
+          "</div>" +
+          '<div style="border-radius:8px;background:#0A0B20;padding:12px;">' +
+            '<p style="margin:0;font-weight:800;color:#28A745;font-size:14px;">Frete Grátis - 5 a 8 dias</p>' +
+            '<p style="margin:4px 0 0;font-size:12px;color:rgba(255,255,255,0.7);">Envio em até 24hrs após aprovação do pagamento.</p>' +
+          "</div>";
+      }
+      card.appendChild(wrap);
+    }
+
+    function consultar() {
+      var cep = (input.value || "").replace(/\D/g, "");
+      if (cep.length !== 8) { render(null, "Digite um CEP válido (8 dígitos)."); return; }
+      var oldText = btn.textContent;
+      btn.textContent = "Consultando...";
+      btn.disabled = true;
+      fetch("https://viacep.com.br/ws/" + cep + "/json/")
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data && data.erro) render(null, "CEP não encontrado. Verifique e tente novamente.");
+          else render(data, null);
+        })
+        .catch(function () { render(null, "Não foi possível consultar o CEP agora."); })
+        .then(function () { btn.textContent = oldText; btn.disabled = false; });
+    }
+
+    btn.addEventListener("click", function (e) {
+      e.preventDefault(); e.stopPropagation(); consultar();
+    }, true);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); consultar(); }
+    });
+  }
+
   function init() {
     wireColor();
     wireAssembly();
     wireSteppers();
     wireBuy();
+    wireFrete();
   }
 
   if (document.readyState === "loading") {
