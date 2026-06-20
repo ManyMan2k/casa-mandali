@@ -165,15 +165,17 @@
     }
     if (!btn) return;
 
-    // sobe até o card que contém o input do CEP
-    var card = btn, guard = 0;
-    while (card && guard < 6) {
-      if (card.querySelector && card.querySelector("input")) break;
-      card = card.parentElement; guard++;
+    // sobe até a linha (flex) que contém o input do CEP, depois pega o card pai
+    var row = btn, guard = 0;
+    while (row && guard < 6) {
+      if (row.querySelector && row.querySelector("input")) break;
+      row = row.parentElement; guard++;
     }
-    if (!card) return;
-    var input = card.querySelector('input[type="text"]') || card.querySelector("input");
+    if (!row) return;
+    var input = row.querySelector('input[type="text"]') || row.querySelector("input");
     if (!input) return;
+    // card = container "Calcule o frete" (resultado vai abaixo da linha input+botão)
+    var card = row.parentElement || row;
 
     function render(data, errMsg) {
       var old = card.querySelector("[data-frete-result]");
